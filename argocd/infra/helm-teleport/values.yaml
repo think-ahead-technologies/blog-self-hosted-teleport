@@ -1,0 +1,38 @@
+teleport-cluster:
+  operator:
+    enabled: true
+  chartMode: azure
+  # More info: https://github.dev/gravitational/teleport/blob/4160786a3e6fabd9b0dcd54354820b222a22535b/examples/chart/teleport-cluster/values.yaml
+  # Also: https://goteleport.com/docs/reference/helm-reference/teleport-cluster/
+  clusterName: teleport.selfhosted.teleport.think-ahead.tech
+  proxyProtocol: "off"
+  proxyListenerMode: multiplex
+  enterprise: false
+  azure:
+    databaseHost: "self-hosted-teleport-db.postgres.database.azure.com"
+    databaseUser: "selfhosted-teleport-cluster-teleport"
+    sessionRecordingStorageAccount: "teleport1740489831.blob.core.windows.net"
+    # Whether to mirror audit log entries to stdout in JSON format (useful for external log collectors)
+    auditLogMirrorOnStdout: false
+    clientID: "12e8543f-3112-4ce9-8aa7-102c7be7b62d"
+  highAvailability:
+    replicaCount: 2
+    certManager:
+      enabled: true
+      issuerName: letsencrypt-production
+      issuerKind: ClusterIssuer
+  ingress:
+    enabled: "true"
+    suppressAutomaticWildcards: true
+    spec:
+      ingressClassName: nginx
+  service:
+    type: ClusterIP
+  annotations:
+    ingress:
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+  auth:
+    teleportConfig:
+      # Add a section for configuring the Teleport Access Graph connection.
+      access_graph:
+        enabled: false

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-teleport
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: teleport
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: argocd/infra/helm-teleport
+    repoURL: git@github.com:think-ahead-technologies/blog-self-hosted-teleport.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

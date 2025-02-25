@@ -1,0 +1,10 @@
+apiVersion: v2
+name: selfhosted-teleport-cluster-cert-manager
+description: A Helm chart for managing cert-manager installation in the cluster
+type: application
+version: 0.1.0
+appVersion: v1.16.3
+dependencies:
+  - name: cert-manager
+    repository: https://charts.jetstack.io
+    version: v1.16.3

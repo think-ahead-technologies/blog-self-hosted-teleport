@@ -1,0 +1,10 @@
+apiVersion: v2
+name: selfhosted-teleport-external-dns
+description: A Helm chart for managing external-dns installation in the cluster
+type: application
+version: 0.1.0
+appVersion: v17.2.1
+dependencies:
+  - name: external-dns
+    repository: "oci://registry-1.docker.io/bitnamicharts"
+    version: "8.7.3"
